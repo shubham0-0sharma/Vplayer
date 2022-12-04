@@ -1,39 +1,17 @@
-import {
-    Card,
-    CardContent,
-    Typography,
-    CardActions,
-    CardMedia,
-    Button,
-} from "@mui/material";
-
-
-
-const Videos = ({videos}) => {
-    console.log(videos);
+import { Stack, Box } from "@mui/material";
+import {VideoCard, ChannelCard} from './index'
+const Videos = ({ videos }) => {
     return (
-        <Card sx={{ maxWidth: 345 }}>
-            <CardMedia
-                component="img"
-                height="140"
-                image="/static/images/cards/contemplative-reptile.jpg"
-                alt="green iguana"
-            />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    Lizard
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with
-                    over 6,000 species, ranging across all continents except
-                    Antarctica
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Button size="small">Share</Button>
-                <Button size="small">Learn More</Button>
-            </CardActions>
-        </Card>
+        <Stack direction="row" flexWrap = "wrap" gap={2} 
+        justifyContent="start"
+        >
+            {videos.map((item, idx) => (
+                <Box key={idx} sx={{width:{md:"320px" , xs: "100%" , boxShadow:'0', borderRadius:"none"}}}>
+                    {item.id.videoId && <VideoCard video={item} />}
+                    {item.id.channelId && <ChannelCard channelDetail={item} />}
+                </Box>
+            ))}
+        </Stack>
     );
 };
 
