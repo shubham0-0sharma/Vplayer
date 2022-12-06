@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { IconButton, Paper } from "@mui/material";
 import { Search } from "@mui/icons-material";
 const SearchBar = () => {
