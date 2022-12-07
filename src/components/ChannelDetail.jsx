@@ -1,21 +1,28 @@
 import { Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchFromAPI } from "./utils/fetchFromAPI";
+import { fetchFromAPI } from "../utils/fetchFromAPI";
 import { Videos, ChannelCard } from "./";
 
-export const ChannelDetail = ({marginTop}) => {
+export const ChannelDetail = ({ marginTop }) => {
     const { id } = useParams();
-    const [channelDetail, setChannelDetail] = useState(null);
-    const [videos, setVideos] = useState([]);
-    console.log(channelDetail, videos);
+    const [channelDetail, setChannelDetail] = useState();
+    const [videos, setVideos] = useState(null);
+
     useEffect(() => {
-        fetchFromAPI(`channels?part=snippet&id=${id}`).then((data) =>
-            setChannelDetail(data?.items[0])
-        );
-        fetchFromAPI(`search?channelId=${id}&part=snippet&order=date`).then(
-            (data) => setVideos(data?.items)
-        );
+        const fetchResults = async () => {
+            const data = await fetchFromAPI(`channels?part=snippet&id=${id}`);
+
+            setChannelDetail(data?.items[0]);
+
+            const videosData = await fetchFromAPI(
+                `search?channelId=${id}&part=snippet%2Cid&order=date`
+            );
+
+            setVideos(videosData?.items);
+        };
+
+        fetchResults();
     }, [id]);
 
     return (
@@ -30,12 +37,14 @@ export const ChannelDetail = ({marginTop}) => {
                         zIndex: 10,
                     }}
                 />
-                <ChannelCard channelDetail={channelDetail} marginTop={"-120px"} />
+                <ChannelCard
+                    channelDetail={channelDetail}
+                    marginTop={"-120px"}
+                />
                 <Box display="flex" p="2">
-                    <Box sx={{mr:{sm:"100px"}}}/>
-                        <Videos videos={videos}/>
+                    <Box sx={{ mr: { sm: "100px" } }} />
+                    <Videos videos={videos} />
                 </Box>
-               
             </Box>
         </Box>
     );

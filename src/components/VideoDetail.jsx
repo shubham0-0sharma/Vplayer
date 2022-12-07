@@ -4,8 +4,8 @@ import { Link, useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
 import { CheckCircle } from "@mui/icons-material";
 
-import Videos from "./Videos";
-import { fetchFromAPI } from "./utils/fetchFromAPI";
+import {Videos,Loader} from "./";
+import { fetchFromAPI } from "../utils/fetchFromAPI";
 
 const VideoDetail = () => {
     const [videoDetails, setVideoDetails] = useState(null);
@@ -20,7 +20,7 @@ const VideoDetail = () => {
             `search?part=snippet&relatedToVideoId=${id}&type=video`
         ).then((data) => setVideos(data.items));
     }, [id]);
-    if (!videoDetails?.snippet) return "Loading...";
+    if (!videoDetails?.snippet) return <Loader/>;
 
     const {
         snippet: { title, channelId, channelTitle },

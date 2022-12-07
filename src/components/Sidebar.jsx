@@ -1,6 +1,6 @@
 
 import { Stack } from "@mui/material"
-import { categories } from './utils/constant'
+import { categories } from '../utils/constant'
 const Sidebar = ({ setSelectedCategory, selectedCategory }) => (
     <Stack
         direction="row"
@@ -35,7 +35,7 @@ const Sidebar = ({ setSelectedCategory, selectedCategory }) => (
                     style={{
                         opacity:
                             category.name === selectedCategory
-                                ? "revert"
+                                ? "1"
                                 : "0.8",
                         marginRight: "15px",
                     }}

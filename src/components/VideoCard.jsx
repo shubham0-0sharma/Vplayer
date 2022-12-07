@@ -7,7 +7,7 @@ import {
     demoVideoTitle,
     demoThumbnailUrl,
     demoVideoUrl,
-} from "./utils/constant";
+} from "../utils/constant";
 const VideoCard = ({
     video: {
         id: { videoId },
@@ -16,16 +16,19 @@ const VideoCard = ({
 }) => (
     <Card
         sx={{
-            width: { xs: "100%", sm:'358px' , md: "320px" },
+            width: { xs: "100%", sm: "358px", md: "320px" },
             boxShadow: "none",
             borderRadius: 0,
         }}
     >
-        <Link to={videoId ? `/video/${videoId}` : demoVideoUrl}>
+        <Link to={videoId ? `/video/${videoId}` : `/video/cV2gBU6hKfY`}>
             <CardMedia
-                image={snippet?.thumbnails?.high?.url}
-                alt={snippet.title}
-                sx={{ width: { xs: "100%",sm: '358px', md: "320px" }, height: "180px" }}
+                image={snippet?.thumbnails?.high?.url || demoThumbnailUrl}
+                alt={snippet?.title}
+                sx={{
+                    width: { xs: "100%", sm: "358px", md: "320px" },
+                    height: "180px",
+                }}
             />
         </Link>
         <CardContent sx={{ backgroundColor: "#1e1e1e", height: "106px" }}>
@@ -42,8 +45,7 @@ const VideoCard = ({
                 }
             >
                 <Typography variant="subtitle2" fontWeight="bold" color="grey">
-                    {snippet?.channelTitle.slice(0, 60) ||
-                        demoChannelTitle.slice(0, 60)}
+                    {snippet?.channelTitle.slice(0, 60) || demoChannelTitle}
                     <CheckCircle
                         sx={{ fontSize: 12, color: "gray", ml: "5px" }}
                     />

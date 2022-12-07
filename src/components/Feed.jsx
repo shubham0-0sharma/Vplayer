@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Box, Typography, Stack } from "@mui/material";
-import { Sidebar, Videos } from ".";
-import { fetchFromAPI } from "./utils/fetchFromAPI";
+import { Sidebar, Videos } from "./";
+import { fetchFromAPI } from "../utils/fetchFromAPI";
 
 const Feed = () => {
     const [selectedCategory, setSelectCategory] = useState("New");
-    const [videos, setVideos] = useState([])
+    const [videos, setVideos] = useState(null)
     useEffect(() => {
+        setVideos(null);
         fetchFromAPI(`search?part=snippet&q=${selectedCategory}`).then((data) => {
             setVideos(data.items)
             
@@ -30,7 +31,7 @@ const Feed = () => {
                     variant="body2"
                     sx={{ mt: 1.5, color: "#fff" }}
                 >
-                    Copyright 2022-2023 V-Player
+                    Copyright © 2023 V-Player
                 </Typography>
             </Box>
             <Box p={2} sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
