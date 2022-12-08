@@ -4,7 +4,7 @@ const Videos = ({ videos , direction}) => {
     if (!videos?.length) return <Loader/>
     return (
         <Stack direction={direction ||"row"} flexWrap = "wrap" gap={2} 
-        justifyContent="start"
+        justifyContent="center"
         >
             {videos.map((item, idx) => (
                 <Box key={idx}>
